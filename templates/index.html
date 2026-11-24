@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Loan Risk Predictor</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="brand">
+                <div class="brand-icon">₹</div>
+
+                <div>
+                    <h1>Loan Risk Predictor</h1>
+                    <p>AI-powered loan default risk assessment</p>
+                </div>
+            </div>
+
+            <div class="status">
+                <span class="status-dot"></span>
+                Model Online
+            </div>
+        </div>
+    </header>
+
+
+    <!-- Main Container -->
+    <main class="container">
+
+        <section class="intro">
+            <h2>Applicant Risk Assessment</h2>
+
+            <p>
+                Enter the applicant's financial and demographic information
+                to estimate the probability of loan default.
+            </p>
+        </section>
+
+
+        <!-- Prediction Form -->
+        <form id="loanForm">
+
+            <!-- Applicant Information -->
+            <section class="card">
+
+                <div class="section-title">
+                    <div class="section-number">01</div>
+
+                    <div>
+                        <h3>Applicant Information</h3>
+                        <p>Basic financial and personal information</p>
+                    </div>
+                </div>
+
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="age">
+                            Age <span>*</span>
+                        </label>
+
+                        <input type="number" id="age" name="AGE_YEARS" min="18" max="100" value="30" required>
+
+                        <small>Applicant age in years</small>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="employment">
+                            Employment Experience <span>*</span>
+                        </label>
+
+                        <input type="number" id="employment" name="EMPLOYED_YEARS" min="0" max="70" step="0.1" value="5"
+                            required>
+
+                        <small>Years of employment</small>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="income">
+                            Annual Income <span>*</span>
+                        </label>
+
+                        <input type="number" id="income" name="AMT_INCOME_TOTAL" min="0" value="180000" required>
+
+                        <small>Annual income</small>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="family">
+                            Family Status <span>*</span>
+                        </label>
+
+                        <select id="family" name="NAME_FAMILY_STATUS" required>
+
+                            <option value="Married">Married</option>
+                            <option value="Single / not married">
+                                Single / not married
+                            </option>
+                            <option value="Civil marriage">
+                                Civil marriage
+                            </option>
+                            <option value="Separated">
+                                Separated
+                            </option>
+                            <option value="Widow">
+                                Widow
+                            </option>
+
+                        </select>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Loan Information -->
+            <section class="card">
+
+                <div class="section-title">
+                    <div class="section-number">02</div>
+
+                    <div>
+                        <h3>Loan Information</h3>
+                        <p>Details about the requested loan</p>
+                    </div>
+                </div>
+
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="credit">
+                            Loan Amount <span>*</span>
+                        </label>
+
+                        <input type="number" id="credit" name="AMT_CREDIT" min="0" value="500000" required>
+
+                        <small>Total requested credit</small>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="annuity">
+                            Annual Annuity <span>*</span>
+                        </label>
+
+                        <input type="number" id="annuity" name="AMT_ANNUITY" min="0" value="25000" required>
+
+                        <small>Loan annuity amount</small>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="goods">
+                            Goods Price <span>*</span>
+                        </label>
+
+                        <input type="number" id="goods" name="AMT_GOODS_PRICE" min="0" value="450000" required>
+
+                        <small>Price of goods financed</small>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="contract">
+                            Contract Type <span>*</span>
+                        </label>
+
+                        <select id="contract" name="NAME_CONTRACT_TYPE" required>
+
+                            <option value="Cash loans">
+                                Cash loans
+                            </option>
+
+                            <option value="Revolving loans">
+                                Revolving loans
+                            </option>
+
+                        </select>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Credit Information -->
+            <section class="card">
+
+                <div class="section-title">
+                    <div class="section-number">03</div>
+
+                    <div>
+                        <h3>Credit & Financial Profile</h3>
+                        <p>Additional indicators used by the model</p>
+                    </div>
+                </div>
+
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label for="ext1">
+                            External Credit Indicator 1 <span>*</span>
+                        </label>
+
+                        <input type="number" id="ext1" name="EXT_SOURCE_1" min="0" max="1" step="0.01" value="0.60"
+                            required>
+
+                        <small>Value between 0 and 1</small>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="ext2">
+                            External Credit Indicator 2 <span>*</span>
+                        </label>
+
+                        <input type="number" id="ext2" name="EXT_SOURCE_2" min="0" max="1" step="0.01" value="0.55"
+                            required>
+
+                        <small>Value between 0 and 1</small>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="ext3">
+                            External Credit Indicator 3 <span>*</span>
+                        </label>
+
+                        <input type="number" id="ext3" name="EXT_SOURCE_3" min="0" max="1" step="0.01" value="0.65"
+                            required>
+
+                        <small>Value between 0 and 1</small>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="region">
+                            Region Rating <span>*</span>
+                        </label>
+
+                        <select id="region" name="REGION_RATING_CLIENT" required>
+
+                            <option value="1">1 - Best rating</option>
+                            <option value="2" selected>2 - Average rating</option>
+                            <option value="3">3 - Higher risk rating</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="def30">
+                            30-Day Social Circle Defaults
+                        </label>
+
+                        <input type="number" id="def30" name="DEF_30_CNT_SOCIAL_CIRCLE" min="0" value="0">
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="def60">
+                            60-Day Social Circle Defaults
+                        </label>
+
+                        <input type="number" id="def60" name="DEF_60_CNT_SOCIAL_CIRCLE" min="0" value="0">
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Personal Profile -->
+            <section class="card">
+
+                <div class="section-title">
+
+                    <div class="section-number">04</div>
+
+                    <div>
+                        <h3>Personal Profile</h3>
+                        <p>Applicant background information</p>
+                    </div>
+
+                </div>
+
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label for="education">
+                            Education <span>*</span>
+                        </label>
+
+                        <select id="education" name="NAME_EDUCATION_TYPE" required>
+
+                            <option value="Higher education">
+                                Higher education
+                            </option>
+
+                            <option value="Secondary / secondary special">
+                                Secondary / secondary special
+                            </option>
+
+                            <option value="Incomplete higher">
+                                Incomplete higher
+                            </option>
+
+                            <option value="Lower secondary">
+                                Lower secondary
+                            </option>
+
+                            <option value="Academic degree">
+                                Academic degree
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="incomeType">
+                            Income Type <span>*</span>
+                        </label>
+
+                        <select id="incomeType" name="NAME_INCOME_TYPE" required>
+
+                            <option value="Working">
+                                Working
+                            </option>
+
+                            <option value="Commercial associate">
+                                Commercial associate
+                            </option>
+
+                            <option value="Pensioner">
+                                Pensioner
+                            </option>
+
+                            <option value="State servant">
+                                State servant
+                            </option>
+
+                            <option value="Student">
+                                Student
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="occupation">
+                            Occupation <span>*</span>
+                        </label>
+
+                        <select id="occupation" name="OCCUPATION_TYPE" required>
+
+                            <option value="Laborers">
+                                Laborers
+                            </option>
+
+                            <option value="Core staff">
+                                Core staff
+                            </option>
+
+                            <option value="Managers">
+                                Managers
+                            </option>
+
+                            <option value="Sales staff">
+                                Sales staff
+                            </option>
+
+                            <option value="Drivers">
+                                Drivers
+                            </option>
+
+                            <option value="Accountants">
+                                Accountants
+                            </option>
+
+                            <option value="High skill tech staff">
+                                High skill tech staff
+                            </option>
+
+                            <option value="Medicine staff">
+                                Medicine staff
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="car">
+                            Owns a Car <span>*</span>
+                        </label>
+
+                        <select id="car" name="FLAG_OWN_CAR" required>
+
+                            <option value="Y">Yes</option>
+                            <option value="N">No</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Submit -->
+            <div class="action-area">
+
+                <button type="submit" id="predictButton">
+                    Predict Loan Risk
+                </button>
+
+                <p class="disclaimer">
+                    This tool provides a machine-learning prediction for
+                    demonstration purposes and should not be used as the
+                    sole basis for financial decisions.
+                </p>
+
+            </div>
+
+        </form>
+
+
+        <!-- Loading -->
+        <div id="loading" class="loading hidden">
+
+            <div class="spinner"></div>
+
+            <p>Analyzing applicant profile...</p>
+
+        </div>
+
+
+        <!-- Result -->
+        <section id="resultCard" class="result-card hidden">
+
+            <div class="result-header">
+
+                <div>
+                    <p class="result-label">
+                        Prediction Result
+                    </p>
+
+                    <h2 id="riskClass">
+                        Lower predicted default risk
+                    </h2>
+                </div>
+
+                <div id="riskBadge" class="risk-badge">
+                    LOW RISK
+                </div>
+
+            </div>
+
+
+            <div class="probability-section">
+
+                <div class="probability-value">
+                    <span id="probability">0.00</span>
+                    <span>%</span>
+                </div>
+
+                <p>
+                    Estimated default probability
+                </p>
+
+            </div>
+
+
+            <div class="threshold-info">
+
+                <span>
+                    Model decision threshold
+                </span>
+
+                <strong id="threshold">
+                    50%
+                </strong>
+
+            </div>
+
+
+            <button type="button" id="resetButton" class="secondary-button">
+                Make Another Prediction
+            </button>
+
+        </section>
+
+
+        <!-- Error -->
+        <div id="errorMessage" class="error-message hidden"></div>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            Loan Default Risk Prediction • Machine Learning Portfolio Project
+        </p>
+
+    </footer>
+
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
